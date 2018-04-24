@@ -48,14 +48,14 @@ function handleReadLine() {
 
 
 function decrypt (transitmessage, key, mode, padding) {
-  let iv = transitmessage.substr(0, 16);
-  let encrypted = transitmessage.substr(16, transitmessage.length);
+  let iv = transitmessage.substr(0, 32);
+  let encrypted = transitmessage.substr(32, transitmessage.length);
 
   key = CryptoJS.enc.Hex.parse(key);
   iv = CryptoJS.enc.Hex.parse(iv);
   encrypted = CryptoJS.enc.Hex.parse(encrypted);
 
-  let decrypted = CryptoJS.AES.decrypt({ciphertext: +encrypted.toString()}, key, { 
+  let decrypted = CryptoJS.AES.decrypt({ciphertext: encrypted}, key, { 
     iv: iv, 
     padding: CryptoJS.pad[padding],
     mode: CryptoJS.mode[mode]
